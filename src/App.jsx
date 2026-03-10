@@ -504,11 +504,13 @@ function WhyCard({ emoji, title, desc }) {
    SERVICES
 ───────────────────────────────────────────────────────────────────────────── */
 function Services() {
+  const [active, setActive] = useState(0);
+
   return (
     <section id="services" className="py-24" style={{ background: BG }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        <Fade className="mb-16">
+        <Fade className="mb-14">
           <div className="flex items-center gap-4 mb-3">
             <div className="h-px flex-1" style={{ background: `${GOLD}30` }} />
             <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>What We Do</span>
@@ -520,16 +522,87 @@ function Services() {
           >
             OUR <span style={{ color: GOLD }}>SERVICES</span>
           </h2>
-          <p className="font-body text-center mt-4 text-[0.88rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>
-            Interior · Exterior · Drywall — handled with precision and care.
-          </p>
         </Fade>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* ── Desktop: split spotlight layout ── */}
+        <div className="hidden lg:flex border" style={{ borderColor: `${GOLD}18`, minHeight: '520px' }}>
+
+          {/* Left — numbered tab list */}
+          <div className="flex-shrink-0 w-[38%] border-r flex flex-col" style={{ borderColor: `${GOLD}18` }}>
+            {SERVICES.map((svc, i) => {
+              const isActive = active === i;
+              return (
+                <button
+                  key={svc.num}
+                  onClick={() => setActive(i)}
+                  className="w-full text-left flex items-center gap-5 px-8 py-7 transition-all duration-200 border-b relative group"
+                  style={{
+                    borderColor: `${GOLD}12`,
+                    background:  isActive ? `${GOLD}0c` : 'transparent',
+                    borderLeft:  `3px solid ${isActive ? GOLD : 'transparent'}`,
+                  }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = `${GOLD}06`; }}
+                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  {/* Number */}
+                  <span
+                    className="font-display leading-none flex-shrink-0 transition-all duration-200"
+                    style={{
+                      fontSize:    '2.8rem',
+                      color:       isActive ? GOLD : 'rgba(255,255,255,0.15)',
+                      letterSpacing: '0.03em',
+                    }}
+                  >
+                    {svc.num}
+                  </span>
+
+                  {/* Title + subtitle */}
+                  <div>
+                    <div
+                      className="font-display transition-colors duration-200"
+                      style={{
+                        fontSize:    '1.25rem',
+                        letterSpacing: '0.06em',
+                        color:       isActive ? 'white' : 'rgba(255,255,255,0.4)',
+                      }}
+                    >
+                      {svc.title.toUpperCase()}
+                    </div>
+                    <div
+                      className="font-body text-[0.72rem] mt-0.5 transition-opacity duration-200"
+                      style={{ color: isActive ? GOLD : 'rgba(255,255,255,0.2)' }}
+                    >
+                      {svc.items[0]} + more
+                    </div>
+                  </div>
+
+                  {/* Active arrow */}
+                  <div
+                    className="ml-auto transition-all duration-200"
+                    style={{ opacity: isActive ? 1 : 0, transform: isActive ? 'translateX(0)' : 'translateX(-8px)' }}
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke={GOLD} strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right — detail spotlight panel */}
+          <ServiceSpotlight key={active} service={SERVICES[active]} />
+        </div>
+
+        {/* ── Mobile: accordion list ── */}
+        <div className="lg:hidden space-y-0 border" style={{ borderColor: `${GOLD}18` }}>
           {SERVICES.map((svc, i) => (
-            <Fade key={svc.num} delay={i * 80}>
-              <ServiceCard {...svc} />
-            </Fade>
+            <MobileServiceAccordion
+              key={svc.num}
+              service={svc}
+              isActive={active === i}
+              onClick={() => setActive(active === i ? -1 : i)}
+            />
           ))}
         </div>
 
@@ -538,63 +611,153 @@ function Services() {
   );
 }
 
-function ServiceCard({ num, emoji, title, desc, items }) {
-  const [hov, setHov] = useState(false);
+function ServiceSpotlight({ service }) {
   return (
     <div
-      className="p-8 h-full transition-all duration-300 relative"
+      className="flex-1 relative overflow-hidden p-10 flex flex-col justify-center"
       style={{
         background: CARD,
-        border:     `1px solid ${hov ? `${GOLD}50` : 'rgba(255,255,255,0.05)'}`,
-        transform:  hov ? 'translate(-4px, -4px)' : 'translate(0, 0)',
-        boxShadow:  hov
-          ? `6px 6px 0 ${GOLD}, 0 20px 48px rgba(0,0,0,0.4)`
-          : `4px 4px 0 ${GOLD}40`,
+        animation: 'fadeSlideIn 0.35s ease-out forwards',
       }}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
     >
-      {/* Big decorative number */}
+      <style>{`
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateX(16px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+      `}</style>
+
+      {/* Giant background number watermark */}
       <div
-        className="font-display leading-none select-none mb-4"
-        style={{ fontSize: '5rem', color: `${GOLD}15`, letterSpacing: '0.02em' }}
+        className="absolute -right-6 -bottom-8 font-display leading-none select-none pointer-events-none"
+        style={{ fontSize: '22rem', color: `${GOLD}07`, letterSpacing: '0.02em', lineHeight: 0.85 }}
       >
-        {num}
+        {service.num}
       </div>
 
-      {/* Emoji box */}
-      <div
-        className="absolute top-8 right-8 w-14 h-14 flex items-center justify-center text-2xl select-none"
-        style={{ background: GOLD_DIM, border: `1px solid ${GOLD}30` }}
-      >
-        {emoji}
+      {/* Top row: emoji + label */}
+      <div className="flex items-center gap-4 mb-7">
+        <div
+          className="w-16 h-16 flex items-center justify-center text-3xl select-none flex-shrink-0"
+          style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}
+        >
+          {service.emoji}
+        </div>
+        <div
+          className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase"
+          style={{ color: GOLD }}
+        >
+          Service {service.num} of 04
+        </div>
       </div>
 
+      {/* Title */}
       <h3
-        className="font-display text-white mb-3"
-        style={{ fontSize: '1.8rem', letterSpacing: '0.04em' }}
+        className="font-display text-white leading-none mb-5"
+        style={{ fontSize: 'clamp(2.6rem, 4vw, 3.8rem)', letterSpacing: '0.04em' }}
       >
-        {title.toUpperCase()}
+        {service.title.toUpperCase()}
       </h3>
-      <p className="font-body text-[0.85rem] mb-6 leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-        {desc}
+
+      {/* Gold divider */}
+      <div className="w-12 h-0.5 mb-5" style={{ background: GOLD }} />
+
+      {/* Desc */}
+      <p
+        className="font-body text-[0.9rem] leading-relaxed mb-8 max-w-lg"
+        style={{ color: 'rgba(255,255,255,0.5)' }}
+      >
+        {service.desc}
       </p>
 
-      <ul className="space-y-2.5">
-        {items.map(item => (
-          <li
-            key={item}
-            className="flex items-center gap-3 font-body text-[0.82rem]"
-            style={{ color: 'rgba(255,255,255,0.6)' }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: GOLD }} />
-            {item}
-          </li>
+      {/* Items grid */}
+      <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+        {service.items.map((item, i) => (
+          <div key={item} className="flex items-center gap-2.5">
+            <span
+              className="font-body text-[0.6rem] font-bold flex-shrink-0"
+              style={{ color: GOLD }}
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span className="font-body text-[0.83rem]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              {item}
+            </span>
+          </div>
         ))}
-      </ul>
+      </div>
+
+      {/* CTA */}
+      <div className="mt-9">
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-7 py-3.5 transition-all duration-200"
+          style={{ background: GOLD, color: BG, clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)' }}
+          onMouseEnter={e => { e.currentTarget.style.background = GOLD_LT; }}
+          onMouseLeave={e => { e.currentTarget.style.background = GOLD; }}
+        >
+          Get a Free Quote
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
     </div>
   );
 }
+
+function MobileServiceAccordion({ service, isActive, onClick }) {
+  return (
+    <div style={{ borderBottom: `1px solid ${GOLD}15` }}>
+      <button
+        onClick={onClick}
+        className="w-full text-left flex items-center gap-4 px-5 py-5 transition-all duration-200"
+        style={{ background: isActive ? `${GOLD}0c` : 'transparent', borderLeft: `3px solid ${isActive ? GOLD : 'transparent'}` }}
+      >
+        <span className="font-display flex-shrink-0" style={{ fontSize: '2rem', color: isActive ? GOLD : 'rgba(255,255,255,0.2)', letterSpacing: '0.03em' }}>
+          {service.num}
+        </span>
+        <span className="font-display flex-1" style={{ fontSize: '1.1rem', letterSpacing: '0.06em', color: isActive ? 'white' : 'rgba(255,255,255,0.45)' }}>
+          {service.title.toUpperCase()}
+        </span>
+        <svg
+          className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
+          style={{ color: GOLD, transform: isActive ? 'rotate(90deg)' : 'rotate(0deg)' }}
+          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <div
+        className="overflow-hidden transition-all duration-300"
+        style={{ maxHeight: isActive ? '600px' : '0' }}
+      >
+        <div className="px-5 pb-7 pt-2">
+          <p className="font-body text-[0.85rem] leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            {service.desc}
+          </p>
+          <ul className="space-y-2.5">
+            {service.items.map((item, i) => (
+              <li key={item} className="flex items-center gap-3">
+                <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: GOLD }}>{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.6)' }}>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            className="inline-block mt-6 font-body text-[0.72rem] font-bold tracking-[0.18em] uppercase px-6 py-3"
+            style={{ background: GOLD, color: BG, clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
+          >
+            Get Free Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    ABOUT
