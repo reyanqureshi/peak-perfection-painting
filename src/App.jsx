@@ -10,6 +10,11 @@ const NAVY     = '#1B2A4A';
 const GOLD     = '#D4A017';
 const GOLD_LT  = '#e8c040';
 const GOLD_DIM = 'rgba(212,160,23,0.18)';
+// Light section tokens
+const L_BG     = '#f8f7f4';
+const L_TEXT   = '#1B2A4A';
+const L_MUTED  = '#5a6a82';
+const L_BORDER = '#e4dfd6';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    HOOKS
@@ -309,11 +314,11 @@ const PLACEHOLDER_REVIEWS = [
 /* ─────────────────────────────────────────────────────────────────────────────
    HELPERS
 ───────────────────────────────────────────────────────────────────────────── */
-function Stars({ rating }) {
+function Stars({ rating, light = false }) {
   return (
     <div className="flex gap-0.5">
       {[1,2,3,4,5].map(i => (
-        <svg key={i} className="w-4 h-4" fill={i <= rating ? GOLD : '#1e3a5f'} viewBox="0 0 20 20">
+        <svg key={i} className="w-4 h-4" fill={i <= rating ? GOLD : (light ? '#ddd8ce' : '#1e3a5f')} viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -558,15 +563,15 @@ function StatsStrip() {
 function WhyChooseUs() {
   const [ref, vis] = useFadeIn(0.15);
   return (
-    <section className="py-24" style={{ background: SURFACE }}>
+    <section className="py-24" style={{ background: L_BG }}>
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className="mb-16 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
             <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Why Us</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
           </div>
-          <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
+          <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
             THE PEAK PERFECTION <span style={{ color: GOLD }}>DIFFERENCE</span>
           </h2>
           <PaintStroke visible={vis} />
@@ -585,20 +590,20 @@ function WhyChooseUs() {
 function WhyCard({ emoji, title, desc }) {
   const [hov, setHov] = useState(false);
   return (
-    <div className="p-7 h-full transition-all duration-300 cursor-default"
+    <div className="p-7 h-full transition-all duration-300 cursor-default bg-white"
       style={{
-        background: hov ? CARD : `${CARD}cc`,
-        border:     `1px solid ${hov ? GOLD + '60' : 'rgba(255,255,255,0.06)'}`,
-        borderTop:  `2px solid ${hov ? GOLD : 'rgba(212,160,23,0.25)'}`,
-        transform:  hov ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow:  hov ? `0 20px 48px rgba(0,0,0,0.4),0 0 0 1px ${GOLD}20` : '0 4px 20px rgba(0,0,0,0.2)',
+        border:    `1px solid ${hov ? GOLD + '70' : L_BORDER}`,
+        borderTop: `3px solid ${hov ? GOLD : GOLD + '55'}`,
+        transform: hov ? 'translateY(-6px)' : 'translateY(0)',
+        boxShadow: hov ? `0 20px 48px rgba(0,0,0,0.1), 0 0 0 1px ${GOLD}20` : '0 2px 12px rgba(0,0,0,0.06)',
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      <div className="text-3xl mb-5 leading-none select-none">{emoji}</div>
-      <h3 className="font-display mb-2" style={{ fontSize: '1.4rem', color: 'white', letterSpacing: '0.05em' }}>{title.toUpperCase()}</h3>
-      <p className="font-body text-[0.83rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.45)' }}>{desc}</p>
+      <div className="w-12 h-12 flex items-center justify-center text-2xl mb-5 select-none"
+        style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{emoji}</div>
+      <h3 className="font-display mb-2" style={{ fontSize: '1.4rem', color: L_TEXT, letterSpacing: '0.05em' }}>{title.toUpperCase()}</h3>
+      <p className="font-body text-[0.83rem] leading-relaxed" style={{ color: L_MUTED }}>{desc}</p>
     </div>
   );
 }
@@ -806,28 +811,155 @@ function MobileServiceAccordion({ service, isActive, onClick }) {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   PASSION & PAINTING SECTION
+─────────────────────────────────────────────────────────────────────────────── */
+function PassionSection() {
+  const [ref, vis] = useFadeIn(0.15);
+  return (
+    <section className="relative py-28 overflow-hidden" style={{ background: NAVY }}>
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+      <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span className="font-display" style={{ fontSize: 'clamp(6rem,22vw,20rem)', color: 'rgba(255,255,255,0.03)', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>PASSION</span>
+      </div>
+      <div ref={ref} className="relative z-10 max-w-4xl mx-auto px-6 text-center"
+        style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(32px)', transition: 'all 0.85s ease' }}>
+        <div className="flex items-center gap-4 mb-7 justify-center">
+          <div className="h-px w-12" style={{ background: `${GOLD}60` }} />
+          <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Our Philosophy</span>
+          <div className="h-px w-12" style={{ background: `${GOLD}60` }} />
+        </div>
+        <h2 className="font-display leading-none mb-8" style={{ fontSize: 'clamp(3.5rem,10vw,7.5rem)', letterSpacing: '0.04em' }}>
+          <span style={{ color: GOLD }}>PASSION</span>
+          <span className="text-white"> &amp; </span>
+          <span className="text-white">PAINTING</span>
+        </h2>
+        <p className="font-body leading-relaxed mb-4 mx-auto" style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', maxWidth: '680px', color: 'rgba(255,255,255,0.65)' }}>
+          This isn't just a job — it's a calling. Every brushstroke, every prep coat, every final finish is done with the same obsession that made us put <span className="font-semibold text-white">"Passion &amp; Painting"</span> on the back of our Sprinter. We don't clock in and clock out. We care deeply about this craft, and it shows on every wall we touch.
+        </p>
+        <p className="font-body leading-relaxed mb-12 mx-auto" style={{ fontSize: 'clamp(0.88rem,1.8vw,1rem)', maxWidth: '600px', color: 'rgba(255,255,255,0.4)' }}>
+          We're not the biggest painting company in McHenry County — we're just the most dedicated. That difference shows up in the details: the extra prep, the clean lines, the follow-through on every single job.
+        </p>
+        <div className="grid sm:grid-cols-3 gap-5 max-w-2xl mx-auto">
+          {[
+            { num: '100+', label: 'Homes Transformed' },
+            { num: '5.0★', label: 'Google Rating'     },
+            { num: '100%', label: 'Satisfaction Rate' },
+          ].map(({ num, label }) => (
+            <div key={label} className="py-6 px-4" style={{ border: `1px solid ${GOLD}28`, background: 'rgba(255,255,255,0.03)' }}>
+              <div className="font-display" style={{ fontSize: '2.6rem', color: GOLD, letterSpacing: '0.04em', lineHeight: 1 }}>{num}</div>
+              <div className="font-body text-[0.62rem] font-bold tracking-[0.2em] uppercase mt-2" style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PORTFOLIO GALLERY
+─────────────────────────────────────────────────────────────────────────────── */
+const GALLERY_PHOTOS = [
+  { src: '/interior-3.jpg',  label: 'Interior',      tall: true  },
+  { src: '/exterior-1.jpg',  label: 'Exterior',      tall: false },
+  { src: '/cabinet-4.jpg',   label: 'Cabinets',      tall: false },
+  { src: '/deck-3.jpg',      label: 'Deck Staining', tall: false },
+  { src: '/interior-9.jpg',  label: 'Interior',      tall: false },
+  { src: '/railing-1.jpg',   label: 'Railings',      tall: false },
+  { src: '/accent-2.jpg',    label: 'Accent Wall',   tall: false },
+  { src: '/door-3.jpg',      label: 'Doors & Trims', tall: false },
+  { src: '/exterior-4.jpg',  label: 'Exterior',      tall: false },
+];
+
+function Portfolio() {
+  const [ref, vis] = useFadeIn(0.1);
+  return (
+    <section id="gallery" className="py-24" style={{ background: L_BG }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div ref={ref} className="mb-14 text-center"
+          style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
+          <div className="flex items-center gap-4 mb-3 justify-center">
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Our Work</span>
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
+          </div>
+          <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
+            PROJECT <span style={{ color: GOLD }}>GALLERY</span>
+          </h2>
+          <PaintStroke visible={vis} />
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" style={{ gridAutoRows: '200px' }}>
+          {GALLERY_PHOTOS.map(({ src, label, tall }, i) => (
+            <Fade key={src} delay={i * 45}>
+              <PortfolioThumb src={src} label={label} tall={tall} />
+            </Fade>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a href="#services"
+            className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-8 py-4 transition-all duration-200"
+            style={{ background: L_TEXT, color: 'white', clipPath: 'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.color = L_TEXT; }}
+            onMouseLeave={e => { e.currentTarget.style.background = L_TEXT; e.currentTarget.style.color = 'white'; }}
+          >
+            Explore All Services
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PortfolioThumb({ src, label, tall }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <div className="relative overflow-hidden cursor-pointer h-full"
+      style={{ gridRow: tall ? 'span 2' : 'span 1' }}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+    >
+      <img src={src} alt={label} className="w-full h-full object-cover transition-transform duration-500"
+        style={{ transform: hov ? 'scale(1.07)' : 'scale(1)' }} />
+      <div className="absolute inset-0 transition-opacity duration-300"
+        style={{ background: `linear-gradient(to top, ${L_TEXT}cc, transparent 60%)`, opacity: hov ? 1 : 0.25 }} />
+      <div className="absolute bottom-3 left-3 transition-all duration-300"
+        style={{ opacity: hov ? 1 : 0, transform: hov ? 'translateY(0)' : 'translateY(6px)' }}>
+        <span className="font-body text-[0.62rem] font-bold tracking-[0.18em] uppercase px-3 py-1.5"
+          style={{ background: GOLD, color: L_TEXT }}>{label}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    ABOUT
 ───────────────────────────────────────────────────────────────────────────── */
 function About() {
   return (
-    <section id="about" className="py-24 overflow-hidden" style={{ background: SURFACE }}>
+    <section id="about" className="py-24 overflow-hidden" style={{ background: L_BG }}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-14 lg:gap-20 items-center">
           <Fade>
-            <div className="relative flex items-center justify-center min-h-[420px]"
-              style={{ background: CARD, border: `1px solid ${GOLD}25`, boxShadow: `8px 8px 0 ${GOLD}35` }}>
-              <div className="absolute inset-0 opacity-20"
-                style={{ backgroundImage: `linear-gradient(rgba(212,160,23,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.08) 1px,transparent 1px)`, backgroundSize: '40px 40px' }} />
-              <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2" style={{ borderColor: GOLD }} />
-              <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2" style={{ borderColor: GOLD }} />
-              <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2" style={{ borderColor: `${GOLD}40` }} />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2" style={{ borderColor: `${GOLD}40` }} />
-              <div className="relative z-10 text-center px-8">
-                <div className="text-[6rem] leading-none select-none mb-4" style={{ filter: `drop-shadow(0 0 30px ${GOLD}50)` }}>🎨</div>
-                <div className="font-display leading-none" style={{ fontSize: '4rem', color: GOLD, letterSpacing: '0.05em' }}>EST. 2024</div>
-                <div className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>Peak Perfection Painting LLC</div>
-                <div className="mt-5 h-px w-20 mx-auto" style={{ background: `${GOLD}40` }} />
-                <div className="font-body text-[0.6rem] font-bold tracking-[0.2em] uppercase mt-4" style={{ color: 'rgba(255,255,255,0.2)' }}>McHenry County · Lake County · Illinois</div>
+            <div className="relative pb-12 pr-8">
+              {/* Main photo */}
+              <div className="overflow-hidden" style={{ boxShadow: '0 24px 60px rgba(0,0,0,0.14)' }}>
+                <img src="/interior-3.jpg" alt="Interior painting by Peak Perfection" className="w-full object-cover" style={{ height: '360px' }} />
+              </div>
+              {/* Overlapping second photo */}
+              <div className="absolute -bottom-0 -right-0 w-44 h-32 overflow-hidden border-4 border-white"
+                style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.18)' }}>
+                <img src="/exterior-1.jpg" alt="Exterior painting" className="w-full h-full object-cover" />
+              </div>
+              {/* EST badge */}
+              <div className="absolute -top-4 -left-4 px-5 py-4" style={{ background: GOLD }}>
+                <div className="font-display text-white leading-none" style={{ fontSize: '1.3rem', letterSpacing: '0.08em' }}>EST.</div>
+                <div className="font-display text-white leading-none" style={{ fontSize: '1.6rem', letterSpacing: '0.08em' }}>2024</div>
               </div>
             </div>
           </Fade>
@@ -837,25 +969,25 @@ function About() {
               <div className="h-px w-8" style={{ background: GOLD }} />
               <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>About Us</span>
             </div>
-            <h2 className="font-display text-white leading-none mb-8" style={{ fontSize: 'clamp(2.2rem,5vw,3.8rem)', letterSpacing: '0.04em' }}>
-              WHO<br /><span style={{ color: GOLD }}>WE ARE</span>
+            <h2 className="font-display leading-none mb-8" style={{ fontSize: 'clamp(2.2rem,5vw,3.8rem)', letterSpacing: '0.04em', color: L_TEXT }}>
+              MORE THAN<br /><span style={{ color: GOLD }}>A PAINT JOB</span>
             </h2>
-            <div className="space-y-4 font-body text-[0.88rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              <p>At <span className="font-semibold text-white">Peak Perfection Painting LLC</span>, we believe that a fresh coat of paint can transform more than just walls — it can transform a home. We are a team of passionate, experienced painters dedicated to bringing your vision to life with precision, creativity, and care.</p>
-              <p>From the first brushstroke to the final finish, we take pride in every detail, ensuring a smooth, stress-free experience for our clients. With years of expertise, we specialize in both interior and exterior painting, offering customized solutions to suit your style, needs, and budget.</p>
-              <p>Whether you're looking to refresh a single room, add curb appeal to your home's exterior, or completely revamp your space, we're here to help. What sets us apart? Attention to detail, timely delivery, and a commitment to using <span className="text-white font-semibold">high-quality, eco-friendly paints</span> that are safe for your family and the environment.</p>
-              <div className="mt-6 pt-5 border-t" style={{ borderColor: `rgba(212,160,23,0.2)` }}>
+            <div className="space-y-4 font-body text-[0.88rem] leading-relaxed" style={{ color: L_MUTED }}>
+              <p>At <span className="font-semibold" style={{ color: L_TEXT }}>Peak Perfection Painting LLC</span>, we believe that a fresh coat of paint can transform more than just walls — it transforms how a home feels. We're a team of passionate painters who take pride in every detail, from prep to final coat.</p>
+              <p>What started as a love for the craft has grown into a reputation built on precision, reliability, and results that speak for themselves. We show up on time, protect your space, and don't leave until the job is done right — every single time.</p>
+              <p>We specialize in interior &amp; exterior painting, cabinet refinishing, deck staining, railings, doors &amp; trims, and accent walls — serving homeowners across McHenry County &amp; Lake County with the care and commitment your home deserves.</p>
+              <div className="mt-6 pt-5 border-t" style={{ borderColor: L_BORDER }}>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-4 h-0.5" style={{ background: GOLD }} />
                   <span className="font-body text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: GOLD }}>Our Mission</span>
                 </div>
-                <p>To provide high-quality, professional painting services that <span className="text-white font-semibold">exceed our clients' expectations</span>. We treat every home like it's our own — with respect, honesty, and a dedication to excellence.</p>
+                <p>To deliver painting services that <span className="font-semibold" style={{ color: L_TEXT }}>exceed every expectation</span>. We treat every home like it's our own — with respect, honesty, and a dedication to excellence that goes beyond the surface.</p>
               </div>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
-              {['Interior','Exterior','Cabinets','Drywall','McHenry County','Lake County'].map(tag => (
+              {['Interior','Exterior','Cabinets','Deck Staining','McHenry County','Lake County'].map(tag => (
                 <span key={tag} className="font-body text-[0.65rem] font-bold tracking-[0.18em] uppercase px-4 py-2 border"
-                  style={{ borderColor: `${GOLD}30`, color: GOLD, background: GOLD_DIM }}>{tag}</span>
+                  style={{ borderColor: `${GOLD}40`, color: GOLD, background: GOLD_DIM }}>{tag}</span>
               ))}
             </div>
           </Fade>
@@ -987,22 +1119,22 @@ function Reviews() {
   }, []);
 
   return (
-    <section id="reviews" className="py-24" style={{ background: SURFACE }}>
+    <section id="reviews" className="py-24" style={{ background: L_BG }}>
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className="mb-16 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
             <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Client Stories</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
           </div>
-          <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
+          <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
             GOOGLE <span style={{ color: GOLD }}>REVIEWS</span>
           </h2>
           {rating != null && (
             <div className="flex items-center justify-center gap-3 mt-4">
-              <Stars rating={Math.round(rating)} />
-              <span className="font-display text-white" style={{ fontSize: '1.8rem' }}>{rating.toFixed(1)}</span>
-              {total && <span className="font-body text-[0.8rem]" style={{ color: 'rgba(255,255,255,0.3)' }}>({total} reviews)</span>}
+              <Stars rating={Math.round(rating)} light />
+              <span className="font-display" style={{ fontSize: '1.8rem', color: L_TEXT }}>{rating.toFixed(1)}</span>
+              {total && <span className="font-body text-[0.8rem]" style={{ color: L_MUTED }}>({total} reviews)</span>}
             </div>
           )}
           <PaintStroke visible={vis} />
@@ -1025,24 +1157,23 @@ function Reviews() {
 function ReviewCard({ review: r }) {
   const [hov, setHov] = useState(false);
   return (
-    <div className="p-7 flex flex-col transition-all duration-300"
+    <div className="p-7 flex flex-col transition-all duration-300 bg-white"
       style={{
-        background: CARD,
-        border:     `1px solid ${hov ? `${GOLD}50` : 'rgba(255,255,255,0.06)'}`,
-        transform:  hov ? 'translate(-3px,-3px)' : 'translate(0,0)',
-        boxShadow:  hov ? `5px 5px 0 ${GOLD}60,0 16px 40px rgba(0,0,0,0.4)` : `3px 3px 0 ${GOLD}25`,
+        border:    `1px solid ${hov ? `${GOLD}60` : L_BORDER}`,
+        transform: hov ? 'translate(-3px,-3px)' : 'translate(0,0)',
+        boxShadow: hov ? `5px 5px 0 ${GOLD}50, 0 16px 40px rgba(0,0,0,0.1)` : `3px 3px 0 ${GOLD}30, 0 2px 12px rgba(0,0,0,0.06)`,
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
-      <Stars rating={r.rating} />
-      <p className="font-body text-[0.84rem] leading-relaxed mt-4 flex-1 italic" style={{ color: 'rgba(255,255,255,0.55)' }}>"{r.text}"</p>
-      <div className="mt-5 pt-4 border-t flex items-center justify-between" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+      <Stars rating={r.rating} light />
+      <p className="font-body text-[0.84rem] leading-relaxed mt-4 flex-1 italic" style={{ color: L_MUTED }}>"{r.text}"</p>
+      <div className="mt-5 pt-4 border-t flex items-center justify-between" style={{ borderColor: L_BORDER }}>
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 flex items-center justify-center font-display text-white flex-shrink-0" style={{ background: NAVY, fontSize: '1.1rem' }}>{r.author_name?.[0] ?? '?'}</div>
           <div>
-            <div className="font-body font-semibold text-[0.83rem] text-white">{r.author_name}</div>
-            <div className="font-body text-[0.7rem]" style={{ color: 'rgba(255,255,255,0.3)' }}>{r.relative_time_description}</div>
+            <div className="font-body font-semibold text-[0.83rem]" style={{ color: L_TEXT }}>{r.author_name}</div>
+            <div className="font-body text-[0.7rem]" style={{ color: L_MUTED }}>{r.relative_time_description}</div>
           </div>
         </div>
         <svg viewBox="0 0 24 24" className="w-5 h-5 opacity-20 flex-shrink-0">
@@ -1256,6 +1387,8 @@ export default function App() {
         <StatsStrip />
         <WhyChooseUs />
         <Services />
+        <PassionSection />
+        <Portfolio />
         <About />
         <Process />
         <Reviews />
