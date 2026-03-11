@@ -284,7 +284,7 @@ const WHY_US = [
 ];
 
 const SERVICES = [
-  { num: '01', emoji: '🏠', title: 'Interior Painting', desc: 'Flawless, lasting finishes for every room — from prep to final coat.', items: ['Living Rooms & Bedrooms', 'Kitchens & Bathrooms', 'Hallways & Ceilings', 'Smooth, Clean Finish'] },
+  { num: '01', emoji: '🏠', title: 'Interior Painting', desc: 'Flawless, lasting finishes for every room — from prep to final coat.', items: ['Living Rooms & Bedrooms', 'Kitchens & Bathrooms', 'Hallways & Ceilings', 'Smooth, Clean Finish'], images: ['/interior-1.jpg','/interior-2.jpg','/interior-3.jpg','/interior-4.jpg','/interior-5.jpg','/interior-6.jpg','/interior-7.jpg','/interior-8.jpg','/interior-9.jpg'] },
   { num: '02', emoji: '🏡', title: 'Exterior Painting',  desc: 'Weather-resistant coatings that protect your home and boost curb appeal.', items: ['Home Exteriors & Siding', 'Trim & Fascia', 'Stucco & Brick', 'Long-Lasting Protection'], images: ['/exterior-1.jpg','/exterior-2.jpg','/exterior-3.jpg','/exterior-4.jpg'] },
   { num: '03', emoji: '🪟', title: 'Cabinet Painting',   desc: 'Transform your kitchen or bathroom with a factory-smooth cabinet finish.', items: ['Kitchen Cabinets', 'Bathroom Vanities', 'Custom Color Matching', 'Durable Long-Lasting Coats'], images: ['/cabinet-1.jpg','/cabinet-2.jpg','/cabinet-3.jpg','/cabinet-4.jpg'] },
   { num: '04', emoji: '🪵', title: 'Deck Staining',      desc: 'Restore and protect your deck with expert staining and sealing.', items: ['Full Deck Staining', 'Solid & Semi-Transparent', 'Wood Prep & Cleaning', 'UV & Weather Protection'], images: ['/deck-1.jpg','/deck-2.jpg','/deck-3.jpg','/deck-4.jpg'] },
