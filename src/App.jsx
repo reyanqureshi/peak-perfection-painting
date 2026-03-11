@@ -3,18 +3,18 @@ import { useState, useEffect, useRef } from 'react';
 /* ─────────────────────────────────────────────────────────────────────────────
    TOKENS
 ───────────────────────────────────────────────────────────────────────────── */
-const BG       = '#06101e';
-const SURFACE  = '#0c1829';
-const CARD     = '#0e1f35';
-const NAVY     = '#1B2A4A';
-const GOLD     = '#D4A017';
-const GOLD_LT  = '#e8c040';
-const GOLD_DIM = 'rgba(212,160,23,0.18)';
+const BG       = '#060f28';
+const SURFACE  = '#091530';
+const CARD     = '#0c1d3a';
+const NAVY     = '#1B3A7A';
+const BLUE     = '#1B55D6';
+const BLUE_LT  = '#3B73F0';
+const BLUE_DIM = 'rgba(27,85,214,0.10)';
 // Light section tokens
-const L_BG     = '#f8f7f4';
-const L_TEXT   = '#1B2A4A';
-const L_MUTED  = '#5a6a82';
-const L_BORDER = '#e4dfd6';
+const L_BG     = '#ffffff';
+const L_TEXT   = '#0d1f45';
+const L_MUTED  = '#4a6080';
+const L_BORDER = '#c8d8ef';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    HOOKS
@@ -71,13 +71,13 @@ function ScrollProgress() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
   return (
-    <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px]" style={{ background: `${GOLD}20` }}>
+    <div className="fixed top-0 left-0 right-0 z-[9999] h-[3px]" style={{ background: `${BLUE}20` }}>
       <div
         className="h-full transition-none"
         style={{
           width:      `${pct}%`,
-          background: `linear-gradient(to right, ${GOLD}, ${GOLD_LT})`,
-          boxShadow:  `0 0 8px ${GOLD}80`,
+          background: `linear-gradient(to right, ${BLUE}, ${BLUE_LT})`,
+          boxShadow:  `0 0 8px ${BLUE}80`,
         }}
       />
     </div>
@@ -134,7 +134,7 @@ function CursorTrail() {
         ctx.beginPath();
         ctx.moveTo(prev.x, prev.y);
         ctx.lineTo(p.x, p.y);
-        ctx.strokeStyle = `rgba(212,160,23,${p.life * t * 0.55})`;
+        ctx.strokeStyle = `rgba(27,85,214,${p.life * t * 0.55})`;
         ctx.lineWidth   = p.life * t * 5;
         ctx.lineCap     = 'round';
         ctx.stroke();
@@ -176,10 +176,10 @@ function FloatingCTA() {
       href="#contact"
       className="fixed bottom-6 right-6 z-[9980] flex items-center gap-2.5 font-body font-bold text-[0.72rem] tracking-[0.15em] uppercase px-5 py-3.5 transition-all duration-500"
       style={{
-        background:  GOLD,
-        color:       BG,
+        background:  BLUE,
+        color:       'white',
         clipPath:    'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
-        boxShadow:   `0 0 0 0 ${GOLD}60`,
+        boxShadow:   `0 0 0 0 ${BLUE}60`,
         opacity:     show ? 1 : 0,
         transform:   show ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.95)',
         pointerEvents: show ? 'auto' : 'none',
@@ -188,8 +188,8 @@ function FloatingCTA() {
     >
       <style>{`
         @keyframes ctaPulse {
-          0%,100% { box-shadow: 0 0 0 0 rgba(212,160,23,0.5); }
-          50%      { box-shadow: 0 0 0 10px rgba(212,160,23,0); }
+          0%,100% { box-shadow: 0 0 0 0 rgba(27,85,214,0.5); }
+          50%      { box-shadow: 0 0 0 10px rgba(27,85,214,0); }
         }
       `}</style>
       🎨 Free Estimate
@@ -206,7 +206,7 @@ function PaintStroke({ visible, align = 'center' }) {
       <svg viewBox="0 0 192 10" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M2,7 C20,3 45,9 70,5 C95,2 118,9 142,5.5 C160,3 175,8 190,6"
-          stroke={GOLD}
+          stroke={BLUE}
           strokeWidth="2.8"
           strokeLinecap="round"
           style={{
@@ -217,7 +217,7 @@ function PaintStroke({ visible, align = 'center' }) {
         />
         <path
           d="M8,8 C30,6 55,9 80,7 C100,5.5 125,8.5 150,6 C165,4.5 178,7 188,6.5"
-          stroke={GOLD}
+          stroke={BLUE}
           strokeWidth="1"
           strokeLinecap="round"
           style={{
@@ -318,7 +318,7 @@ function Stars({ rating, light = false }) {
   return (
     <div className="flex gap-0.5">
       {[1,2,3,4,5].map(i => (
-        <svg key={i} className="w-4 h-4" fill={i <= rating ? GOLD : (light ? '#ddd8ce' : '#1e3a5f')} viewBox="0 0 20 20">
+        <svg key={i} className="w-4 h-4" fill={i <= rating ? BLUE : (light ? '#ddd8ce' : '#1e3a5f')} viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -344,7 +344,7 @@ function Navbar() {
       style={{
         background:     scrolled ? `${BG}f5` : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom:   scrolled ? `1px solid ${GOLD}15` : '1px solid transparent',
+        borderBottom:   scrolled ? `1px solid ${BLUE}15` : '1px solid transparent',
       }}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-[70px] md:h-[78px]">
@@ -352,7 +352,7 @@ function Navbar() {
           <span className="text-2xl leading-none">🎨</span>
           <div className="leading-none">
             <div className="font-display text-white tracking-wider" style={{ fontSize: '1.35rem', letterSpacing: '0.05em' }}>PEAK PERFECTION</div>
-            <div className="font-body text-[0.58rem] font-bold tracking-[0.25em] uppercase -mt-0.5" style={{ color: GOLD }}>PAINTING LLC</div>
+            <div className="font-body text-[0.58rem] font-bold tracking-[0.25em] uppercase -mt-0.5" style={{ color: BLUE }}>PAINTING LLC</div>
           </div>
         </a>
 
@@ -371,9 +371,9 @@ function Navbar() {
           <a
             href="#contact"
             className="font-body text-[0.72rem] font-bold tracking-[0.12em] uppercase px-5 py-2.5 transition-all duration-200"
-            style={{ background: GOLD, color: BG, clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
-            onMouseEnter={e => { e.currentTarget.style.background = GOLD_LT; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = GOLD;    e.currentTarget.style.transform = 'translateY(0)';    }}
+            style={{ background: BLUE, color: 'white', clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = BLUE_LT; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = BLUE;    e.currentTarget.style.transform = 'translateY(0)';    }}
           >
             Free Estimate
           </a>
@@ -383,7 +383,7 @@ function Navbar() {
           {[0,1,2].map(i => (
             <span key={i} className="block rounded transition-all duration-300"
               style={{
-                width: i === 1 ? (open ? '22px' : '16px') : '22px', height: '2px', background: GOLD,
+                width: i === 1 ? (open ? '22px' : '16px') : '22px', height: '2px', background: BLUE,
                 transformOrigin: 'center', opacity: open && i === 1 ? 0 : 1,
                 transform: open ? i === 0 ? 'rotate(45deg) translate(5px,5px)' : i === 2 ? 'rotate(-45deg) translate(5px,-5px)' : 'none' : 'none',
               }}
@@ -395,14 +395,14 @@ function Navbar() {
       <div className="md:hidden overflow-hidden transition-all duration-300"
         style={{ maxHeight: open ? '360px' : '0', background: `${SURFACE}f0`, backdropFilter: 'blur(16px)' }}
       >
-        <div className="px-6 pb-7 pt-4 flex flex-col gap-5 border-t" style={{ borderColor: `${GOLD}20` }}>
+        <div className="px-6 pb-7 pt-4 flex flex-col gap-5 border-t" style={{ borderColor: `${BLUE}20` }}>
           {NAV_LINKS.map(({ label, href }) => (
             <a key={label} href={href} onClick={() => setOpen(false)}
               className="font-body text-sm font-semibold tracking-[0.12em] uppercase text-white/60">{label}</a>
           ))}
           <a href="#contact" onClick={() => setOpen(false)}
             className="font-body text-sm font-bold tracking-[0.12em] uppercase py-3.5 text-center mt-1"
-            style={{ background: GOLD, color: BG }}>Get Free Estimate</a>
+            style={{ background: BLUE, color: 'white' }}>Get Free Estimate</a>
         </div>
       </div>
     </nav>
@@ -432,22 +432,22 @@ function Hero() {
 
       {/* Grid texture */}
       <div className="absolute inset-0 pointer-events-none opacity-30"
-        style={{ backgroundImage: `linear-gradient(rgba(212,160,23,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.06) 1px,transparent 1px)`, backgroundSize: '80px 80px' }}
+        style={{ backgroundImage: `linear-gradient(rgba(27,85,214,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(27,85,214,0.06) 1px,transparent 1px)`, backgroundSize: '80px 80px' }}
       />
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 75% 60% at 50% 50%, rgba(212,160,23,0.05) 0%, transparent 70%)` }}
+        style={{ background: `radial-gradient(ellipse 75% 60% at 50% 50%, rgba(27,85,214,0.05) 0%, transparent 70%)` }}
       />
-      <div className="absolute left-6 top-0 bottom-0 w-px hidden lg:block" style={{ background: `linear-gradient(to bottom,transparent,${GOLD}40,transparent)` }} />
-      <div className="absolute right-6 top-0 bottom-0 w-px hidden lg:block" style={{ background: `linear-gradient(to bottom,transparent,${GOLD}40,transparent)` }} />
+      <div className="absolute left-6 top-0 bottom-0 w-px hidden lg:block" style={{ background: `linear-gradient(to bottom,transparent,${BLUE}40,transparent)` }} />
+      <div className="absolute right-6 top-0 bottom-0 w-px hidden lg:block" style={{ background: `linear-gradient(to bottom,transparent,${BLUE}40,transparent)` }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-28 pb-20">
 
         {/* Badge */}
         <div
           className="inline-flex items-center gap-2 mb-8 px-4 py-2 font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase border"
-          style={{ borderColor: `${GOLD}35`, color: GOLD, background: GOLD_DIM, opacity: 0, animation: 'heroBadge 0.6s ease forwards 0.1s' }}
+          style={{ borderColor: `${BLUE}35`, color: BLUE, background: BLUE_DIM, opacity: 0, animation: 'heroBadge 0.6s ease forwards 0.1s' }}
         >
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: GOLD }} />
+          <span className="w-1.5 h-1.5 rounded-full" style={{ background: BLUE }} />
           McHenry &amp; Lake County Specialists
         </div>
 
@@ -463,7 +463,7 @@ function Hero() {
         <div className="overflow-hidden mb-4">
           <h1
             className="font-display leading-none"
-            style={{ fontSize: 'clamp(3.5rem,12vw,10rem)', letterSpacing: '0.02em', color: GOLD, opacity: 0, animation: 'heroLine 0.75s cubic-bezier(0.16,1,0.3,1) forwards 0.58s' }}
+            style={{ fontSize: 'clamp(3.5rem,12vw,10rem)', letterSpacing: '0.02em', color: BLUE, opacity: 0, animation: 'heroLine 0.75s cubic-bezier(0.16,1,0.3,1) forwards 0.58s' }}
           >
             YOUR SPACE
           </h1>
@@ -488,16 +488,16 @@ function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#contact"
               className="font-body font-bold text-[0.78rem] tracking-[0.18em] uppercase px-10 py-4 transition-all duration-200"
-              style={{ background: GOLD, color: BG, clipPath: 'polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)' }}
-              onMouseEnter={e => { e.currentTarget.style.background = GOLD_LT; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 36px rgba(212,160,23,0.35)`; }}
-              onMouseLeave={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+              style={{ background: BLUE, color: 'white', clipPath: 'polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)' }}
+              onMouseEnter={e => { e.currentTarget.style.background = BLUE_LT; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 36px rgba(27,85,214,0.35)`; }}
+              onMouseLeave={e => { e.currentTarget.style.background = BLUE; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
               Get a Free Estimate
             </a>
             <a href="#services"
               className="font-body font-bold text-[0.78rem] tracking-[0.18em] uppercase px-10 py-4 border text-white/70 transition-all duration-200"
               style={{ borderColor: 'rgba(255,255,255,0.18)', background: 'rgba(255,255,255,0.04)' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = `${GOLD}70`; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = `${BLUE}70`; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'; e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Our Services
@@ -520,12 +520,12 @@ function Hero() {
 function MarqueeStrip() {
   const items = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
   return (
-    <div className="py-4 overflow-hidden border-y" style={{ background: GOLD }}>
+    <div className="py-4 overflow-hidden border-y" style={{ background: BLUE }}>
       <div className="flex items-center animate-marquee whitespace-nowrap">
         {[...items, ...items].map((item, i) => (
           <span key={i} className="inline-flex items-center gap-4 mx-4">
-            <span className="font-display tracking-wider uppercase" style={{ fontSize: '1.1rem', color: BG, letterSpacing: '0.08em' }}>{item}</span>
-            <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: `${BG}50`, flexShrink: 0 }} />
+            <span className="font-display tracking-wider uppercase" style={{ fontSize: '1.1rem', color: 'white', letterSpacing: '0.08em' }}>{item}</span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.4)', flexShrink: 0 }} />
           </span>
         ))}
       </div>
@@ -544,12 +544,12 @@ function StatsStrip() {
     { display: <>Est. <CountUp to={2024} duration={1200} /></>,   label: 'McHenry & Lake County' },
   ];
   return (
-    <div className="py-10" style={{ background: GOLD }}>
+    <div className="py-10" style={{ background: BLUE }}>
       <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map(({ display, label }, i) => (
-          <div key={i} className="text-center px-4" style={{ borderRight: i < 3 ? `1px solid ${BG}22` : 'none' }}>
-            <div className="font-display font-bold leading-none" style={{ fontSize: 'clamp(1.6rem,4vw,2.4rem)', color: BG }}>{display}</div>
-            <div className="font-body text-[0.6rem] font-bold uppercase tracking-[0.18em] mt-1.5 opacity-65" style={{ color: BG }}>{label}</div>
+          <div key={i} className="text-center px-4" style={{ borderRight: i < 3 ? '1px solid rgba(255,255,255,0.2)' : 'none' }}>
+            <div className="font-display font-bold leading-none" style={{ fontSize: 'clamp(1.6rem,4vw,2.4rem)', color: 'white' }}>{display}</div>
+            <div className="font-body text-[0.6rem] font-bold uppercase tracking-[0.18em] mt-1.5" style={{ color: 'rgba(255,255,255,0.65)' }}>{label}</div>
           </div>
         ))}
       </div>
@@ -567,12 +567,12 @@ function WhyChooseUs() {
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className="mb-16 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Why Us</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Why Us</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
           </div>
           <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
-            THE PEAK PERFECTION <span style={{ color: GOLD }}>DIFFERENCE</span>
+            THE PEAK PERFECTION <span style={{ color: BLUE }}>DIFFERENCE</span>
           </h2>
           <PaintStroke visible={vis} />
         </div>
@@ -592,16 +592,16 @@ function WhyCard({ emoji, title, desc }) {
   return (
     <div className="p-7 h-full transition-all duration-300 cursor-default bg-white"
       style={{
-        border:    `1px solid ${hov ? GOLD + '70' : L_BORDER}`,
-        borderTop: `3px solid ${hov ? GOLD : GOLD + '55'}`,
+        border:    `1px solid ${hov ? BLUE + '70' : L_BORDER}`,
+        borderTop: `3px solid ${hov ? BLUE : BLUE + '55'}`,
         transform: hov ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow: hov ? `0 20px 48px rgba(0,0,0,0.1), 0 0 0 1px ${GOLD}20` : '0 2px 12px rgba(0,0,0,0.06)',
+        boxShadow: hov ? `0 20px 48px rgba(0,0,0,0.1), 0 0 0 1px ${BLUE}20` : '0 2px 12px rgba(0,0,0,0.06)',
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
       <div className="w-12 h-12 flex items-center justify-center text-2xl mb-5 select-none"
-        style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{emoji}</div>
+        style={{ background: BLUE_DIM, border: `1px solid ${BLUE}40` }}>{emoji}</div>
       <h3 className="font-display mb-2" style={{ fontSize: '1.4rem', color: L_TEXT, letterSpacing: '0.05em' }}>{title.toUpperCase()}</h3>
       <p className="font-body text-[0.83rem] leading-relaxed" style={{ color: L_MUTED }}>{desc}</p>
     </div>
@@ -621,30 +621,30 @@ function Services() {
 
         <div ref={ref} className="mb-14 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>What We Do</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>What We Do</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
           </div>
           <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
-            OUR <span style={{ color: GOLD }}>SERVICES</span>
+            OUR <span style={{ color: BLUE }}>SERVICES</span>
           </h2>
           <PaintStroke visible={vis} />
         </div>
 
         {/* Desktop spotlight */}
-        <div className="hidden lg:flex border" style={{ borderColor: `${GOLD}18`, minHeight: '520px' }}>
-          <div className="flex-shrink-0 w-[38%] border-r flex flex-col" style={{ borderColor: `${GOLD}18` }}>
+        <div className="hidden lg:flex border" style={{ borderColor: `${BLUE}18`, minHeight: '520px' }}>
+          <div className="flex-shrink-0 w-[38%] border-r flex flex-col" style={{ borderColor: `${BLUE}18` }}>
             {SERVICES.map((svc, i) => {
               const isActive = active === i;
               return (
                 <button key={svc.num} onClick={() => setActive(i)}
                   className="w-full text-left flex items-center gap-5 px-8 py-5 transition-all duration-200 border-b"
-                  style={{ borderColor: `${GOLD}12`, background: isActive ? `${GOLD}0c` : 'transparent', borderLeft: `3px solid ${isActive ? GOLD : 'transparent'}` }}
-                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = `${GOLD}06`; }}
+                  style={{ borderColor: `${BLUE}12`, background: isActive ? `${BLUE}0c` : 'transparent', borderLeft: `3px solid ${isActive ? BLUE : 'transparent'}` }}
+                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = `${BLUE}06`; }}
                   onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
                 >
                   <span className="font-display leading-none flex-shrink-0 transition-all duration-200"
-                    style={{ fontSize: '2.8rem', color: isActive ? GOLD : 'rgba(255,255,255,0.15)', letterSpacing: '0.03em' }}>
+                    style={{ fontSize: '2.8rem', color: isActive ? BLUE : 'rgba(255,255,255,0.15)', letterSpacing: '0.03em' }}>
                     {svc.num}
                   </span>
                   <div>
@@ -652,12 +652,12 @@ function Services() {
                       style={{ fontSize: '1.25rem', letterSpacing: '0.06em', color: isActive ? 'white' : 'rgba(255,255,255,0.4)' }}>
                       {svc.title.toUpperCase()}
                     </div>
-                    <div className="font-body text-[0.72rem] mt-0.5" style={{ color: isActive ? GOLD : 'rgba(255,255,255,0.2)' }}>
+                    <div className="font-body text-[0.72rem] mt-0.5" style={{ color: isActive ? BLUE : 'rgba(255,255,255,0.2)' }}>
                       {svc.items[0]} + more
                     </div>
                   </div>
                   <div className="ml-auto transition-all duration-200" style={{ opacity: isActive ? 1 : 0, transform: isActive ? 'translateX(0)' : 'translateX(-8px)' }}>
-                    <svg className="w-4 h-4" fill="none" stroke={GOLD} strokeWidth={2} viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke={BLUE} strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -669,7 +669,7 @@ function Services() {
         </div>
 
         {/* Mobile accordion */}
-        <div className="lg:hidden space-y-0 border" style={{ borderColor: `${GOLD}18` }}>
+        <div className="lg:hidden space-y-0 border" style={{ borderColor: `${BLUE}18` }}>
           {SERVICES.map((svc, i) => (
             <MobileServiceAccordion key={svc.num} service={svc} isActive={active === i} onClick={() => setActive(active === i ? -1 : i)} />
           ))}
@@ -713,7 +713,7 @@ function ServiceSpotlight({ service }) {
                 style={{
                   width:   activeImg === i ? '64px' : '48px',
                   height:  '40px',
-                  border:  `2px solid ${activeImg === i ? GOLD : 'rgba(255,255,255,0.25)'}`,
+                  border:  `2px solid ${activeImg === i ? BLUE : 'rgba(255,255,255,0.25)'}`,
                   opacity: activeImg === i ? 1 : 0.6,
                 }}
               >
@@ -723,7 +723,7 @@ function ServiceSpotlight({ service }) {
           </div>
           {/* Photo count badge */}
           <div className="absolute top-3 right-3 font-body text-[0.6rem] font-bold tracking-widest uppercase px-2.5 py-1"
-            style={{ background: `${BG}cc`, color: GOLD, border: `1px solid ${GOLD}40`, backdropFilter: 'blur(4px)' }}>
+            style={{ background: `${BG}cc`, color: BLUE, border: `1px solid ${BLUE}40`, backdropFilter: 'blur(4px)' }}>
             {activeImg + 1} / {service.images.length}
           </div>
         </div>
@@ -734,24 +734,24 @@ function ServiceSpotlight({ service }) {
         {/* Watermark number — only when no photos */}
         {!hasPhotos && (
           <div className="absolute -right-6 -bottom-8 font-display leading-none select-none pointer-events-none"
-            style={{ fontSize: '22rem', color: `${GOLD}07`, letterSpacing: '0.02em', lineHeight: 0.85 }}>{service.num}</div>
+            style={{ fontSize: '22rem', color: `${BLUE}07`, letterSpacing: '0.02em', lineHeight: 0.85 }}>{service.num}</div>
         )}
 
         <div className="flex items-center gap-4 mb-5">
           <div className="w-12 h-12 flex items-center justify-center text-2xl select-none flex-shrink-0"
-            style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{service.emoji}</div>
-          <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Service {service.num} of 07</div>
+            style={{ background: BLUE_DIM, border: `1px solid ${BLUE}40` }}>{service.emoji}</div>
+          <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Service {service.num} of 07</div>
         </div>
 
         <h3 className="font-display text-white leading-none mb-3"
           style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', letterSpacing: '0.04em' }}>{service.title.toUpperCase()}</h3>
-        <div className="w-10 h-0.5 mb-4" style={{ background: GOLD }} />
+        <div className="w-10 h-0.5 mb-4" style={{ background: BLUE }} />
         <p className="font-body text-[0.85rem] leading-relaxed mb-6 max-w-lg" style={{ color: 'rgba(255,255,255,0.5)' }}>{service.desc}</p>
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-7">
           {service.items.map((item, i) => (
             <div key={item} className="flex items-center gap-2.5">
-              <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: GOLD }}>{String(i+1).padStart(2,'0')}</span>
+              <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: BLUE }}>{String(i+1).padStart(2,'0')}</span>
               <span className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.65)' }}>{item}</span>
             </div>
           ))}
@@ -759,9 +759,9 @@ function ServiceSpotlight({ service }) {
 
         <a href="#contact"
           className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-7 py-3.5 transition-all duration-200 self-start"
-          style={{ background: GOLD, color: BG, clipPath: 'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)' }}
-          onMouseEnter={e => (e.currentTarget.style.background = GOLD_LT)}
-          onMouseLeave={e => (e.currentTarget.style.background = GOLD)}
+          style={{ background: BLUE, color: 'white', clipPath: 'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)' }}
+          onMouseEnter={e => (e.currentTarget.style.background = BLUE_LT)}
+          onMouseLeave={e => (e.currentTarget.style.background = BLUE)}
         >
           Get a Free Quote
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -775,15 +775,15 @@ function ServiceSpotlight({ service }) {
 
 function MobileServiceAccordion({ service, isActive, onClick }) {
   return (
-    <div style={{ borderBottom: `1px solid ${GOLD}15` }}>
+    <div style={{ borderBottom: `1px solid ${BLUE}15` }}>
       <button onClick={onClick}
         className="w-full text-left flex items-center gap-4 px-5 py-5 transition-all duration-200"
-        style={{ background: isActive ? `${GOLD}0c` : 'transparent', borderLeft: `3px solid ${isActive ? GOLD : 'transparent'}` }}
+        style={{ background: isActive ? `${BLUE}0c` : 'transparent', borderLeft: `3px solid ${isActive ? BLUE : 'transparent'}` }}
       >
-        <span className="font-display flex-shrink-0" style={{ fontSize: '2rem', color: isActive ? GOLD : 'rgba(255,255,255,0.2)', letterSpacing: '0.03em' }}>{service.num}</span>
+        <span className="font-display flex-shrink-0" style={{ fontSize: '2rem', color: isActive ? BLUE : 'rgba(255,255,255,0.2)', letterSpacing: '0.03em' }}>{service.num}</span>
         <span className="font-display flex-1" style={{ fontSize: '1.1rem', letterSpacing: '0.06em', color: isActive ? 'white' : 'rgba(255,255,255,0.45)' }}>{service.title.toUpperCase()}</span>
         <svg className="w-4 h-4 flex-shrink-0 transition-transform duration-300"
-          style={{ color: GOLD, transform: isActive ? 'rotate(90deg)' : 'rotate(0deg)' }}
+          style={{ color: BLUE, transform: isActive ? 'rotate(90deg)' : 'rotate(0deg)' }}
           fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
@@ -794,14 +794,14 @@ function MobileServiceAccordion({ service, isActive, onClick }) {
           <ul className="space-y-2.5">
             {service.items.map((item, i) => (
               <li key={item} className="flex items-center gap-3">
-                <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: GOLD }}>{String(i+1).padStart(2,'0')}</span>
+                <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: BLUE }}>{String(i+1).padStart(2,'0')}</span>
                 <span className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.6)' }}>{item}</span>
               </li>
             ))}
           </ul>
           <a href="#contact"
             className="inline-block mt-6 font-body text-[0.72rem] font-bold tracking-[0.18em] uppercase px-6 py-3"
-            style={{ background: GOLD, color: BG, clipPath: 'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)' }}>
+            style={{ background: BLUE, color: 'white', clipPath: 'polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)' }}>
             Get Free Quote
           </a>
         </div>
@@ -817,20 +817,20 @@ function PassionSection() {
   const [ref, vis] = useFadeIn(0.15);
   return (
     <section className="relative py-28 overflow-hidden" style={{ background: NAVY }}>
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
-      <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${GOLD}, transparent)` }} />
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${BLUE}, transparent)` }} />
+      <div className="absolute bottom-0 left-0 right-0 h-1" style={{ background: `linear-gradient(to right, transparent, ${BLUE}, transparent)` }} />
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <span className="font-display" style={{ fontSize: 'clamp(6rem,22vw,20rem)', color: 'rgba(255,255,255,0.03)', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>PASSION</span>
       </div>
       <div ref={ref} className="relative z-10 max-w-4xl mx-auto px-6 text-center"
         style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(32px)', transition: 'all 0.85s ease' }}>
         <div className="flex items-center gap-4 mb-7 justify-center">
-          <div className="h-px w-12" style={{ background: `${GOLD}60` }} />
-          <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Our Philosophy</span>
-          <div className="h-px w-12" style={{ background: `${GOLD}60` }} />
+          <div className="h-px w-12" style={{ background: `${BLUE}60` }} />
+          <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Our Philosophy</span>
+          <div className="h-px w-12" style={{ background: `${BLUE}60` }} />
         </div>
         <h2 className="font-display leading-none mb-8" style={{ fontSize: 'clamp(3.5rem,10vw,7.5rem)', letterSpacing: '0.04em' }}>
-          <span style={{ color: GOLD }}>PASSION</span>
+          <span style={{ color: BLUE }}>PASSION</span>
           <span className="text-white"> &amp; </span>
           <span className="text-white">PAINTING</span>
         </h2>
@@ -846,8 +846,8 @@ function PassionSection() {
             { num: '5.0★', label: 'Google Rating'     },
             { num: '100%', label: 'Satisfaction Rate' },
           ].map(({ num, label }) => (
-            <div key={label} className="py-6 px-4" style={{ border: `1px solid ${GOLD}28`, background: 'rgba(255,255,255,0.03)' }}>
-              <div className="font-display" style={{ fontSize: '2.6rem', color: GOLD, letterSpacing: '0.04em', lineHeight: 1 }}>{num}</div>
+            <div key={label} className="py-6 px-4" style={{ border: `1px solid ${BLUE}28`, background: 'rgba(255,255,255,0.03)' }}>
+              <div className="font-display" style={{ fontSize: '2.6rem', color: BLUE, letterSpacing: '0.04em', lineHeight: 1 }}>{num}</div>
               <div className="font-body text-[0.62rem] font-bold tracking-[0.2em] uppercase mt-2" style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</div>
             </div>
           ))}
@@ -880,12 +880,12 @@ function Portfolio() {
         <div ref={ref} className="mb-14 text-center"
           style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Our Work</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Our Work</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
           </div>
           <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
-            PROJECT <span style={{ color: GOLD }}>GALLERY</span>
+            PROJECT <span style={{ color: BLUE }}>GALLERY</span>
           </h2>
           <PaintStroke visible={vis} />
         </div>
@@ -902,7 +902,7 @@ function Portfolio() {
           <a href="#services"
             className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-8 py-4 transition-all duration-200"
             style={{ background: L_TEXT, color: 'white', clipPath: 'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)' }}
-            onMouseEnter={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.color = L_TEXT; }}
+            onMouseEnter={e => { e.currentTarget.style.background = BLUE; e.currentTarget.style.color = L_TEXT; }}
             onMouseLeave={e => { e.currentTarget.style.background = L_TEXT; e.currentTarget.style.color = 'white'; }}
           >
             Explore All Services
@@ -931,7 +931,7 @@ function PortfolioThumb({ src, label, tall }) {
       <div className="absolute bottom-3 left-3 transition-all duration-300"
         style={{ opacity: hov ? 1 : 0, transform: hov ? 'translateY(0)' : 'translateY(6px)' }}>
         <span className="font-body text-[0.62rem] font-bold tracking-[0.18em] uppercase px-3 py-1.5"
-          style={{ background: GOLD, color: L_TEXT }}>{label}</span>
+          style={{ background: BLUE, color: L_TEXT }}>{label}</span>
       </div>
     </div>
   );
@@ -957,7 +957,7 @@ function About() {
                 <img src="/exterior-1.jpg" alt="Exterior painting" className="w-full h-full object-cover" />
               </div>
               {/* EST badge */}
-              <div className="absolute -top-4 -left-4 px-5 py-4" style={{ background: GOLD }}>
+              <div className="absolute -top-4 -left-4 px-5 py-4" style={{ background: BLUE }}>
                 <div className="font-display text-white leading-none" style={{ fontSize: '1.3rem', letterSpacing: '0.08em' }}>EST.</div>
                 <div className="font-display text-white leading-none" style={{ fontSize: '1.6rem', letterSpacing: '0.08em' }}>2024</div>
               </div>
@@ -966,11 +966,11 @@ function About() {
 
           <Fade delay={200}>
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8" style={{ background: GOLD }} />
-              <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>About Us</span>
+              <div className="h-px w-8" style={{ background: BLUE }} />
+              <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>About Us</span>
             </div>
             <h2 className="font-display leading-none mb-8" style={{ fontSize: 'clamp(2.2rem,5vw,3.8rem)', letterSpacing: '0.04em', color: L_TEXT }}>
-              MORE THAN<br /><span style={{ color: GOLD }}>A PAINT JOB</span>
+              MORE THAN<br /><span style={{ color: BLUE }}>A PAINT JOB</span>
             </h2>
             <div className="space-y-4 font-body text-[0.88rem] leading-relaxed" style={{ color: L_MUTED }}>
               <p>At <span className="font-semibold" style={{ color: L_TEXT }}>Peak Perfection Painting LLC</span>, we believe that a fresh coat of paint can transform more than just walls — it transforms how a home feels. We're a team of passionate painters who take pride in every detail, from prep to final coat.</p>
@@ -978,8 +978,8 @@ function About() {
               <p>We specialize in interior &amp; exterior painting, cabinet refinishing, deck staining, railings, doors &amp; trims, and accent walls — serving homeowners across McHenry County &amp; Lake County with the care and commitment your home deserves.</p>
               <div className="mt-6 pt-5 border-t" style={{ borderColor: L_BORDER }}>
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-4 h-0.5" style={{ background: GOLD }} />
-                  <span className="font-body text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: GOLD }}>Our Mission</span>
+                  <div className="w-4 h-0.5" style={{ background: BLUE }} />
+                  <span className="font-body text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: BLUE }}>Our Mission</span>
                 </div>
                 <p>To deliver painting services that <span className="font-semibold" style={{ color: L_TEXT }}>exceed every expectation</span>. We treat every home like it's our own — with respect, honesty, and a dedication to excellence that goes beyond the surface.</p>
               </div>
@@ -987,7 +987,7 @@ function About() {
             <div className="mt-8 flex flex-wrap gap-2">
               {['Interior','Exterior','Cabinets','Deck Staining','McHenry County','Lake County'].map(tag => (
                 <span key={tag} className="font-body text-[0.65rem] font-bold tracking-[0.18em] uppercase px-4 py-2 border"
-                  style={{ borderColor: `${GOLD}40`, color: GOLD, background: GOLD_DIM }}>{tag}</span>
+                  style={{ borderColor: `${BLUE}40`, color: BLUE, background: BLUE_DIM }}>{tag}</span>
               ))}
             </div>
           </Fade>
@@ -1008,12 +1008,12 @@ function Process() {
 
         <div ref={ref} className="mb-16 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>How It Works</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>How It Works</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
           </div>
           <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
-            OUR <span style={{ color: GOLD }}>PROCESS</span>
+            OUR <span style={{ color: BLUE }}>PROCESS</span>
           </h2>
           <PaintStroke visible={vis} />
         </div>
@@ -1021,14 +1021,14 @@ function Process() {
         {/* Desktop: horizontal timeline */}
         <div className="hidden md:block relative">
           {/* Connecting line */}
-          <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-px" style={{ background: `${GOLD}25` }}>
+          <div className="absolute top-[52px] left-[12.5%] right-[12.5%] h-px" style={{ background: `${BLUE}25` }}>
             <div
               className="h-full"
               style={{
-                background:  `linear-gradient(to right, ${GOLD}, ${GOLD_LT})`,
+                background:  `linear-gradient(to right, ${BLUE}, ${BLUE_LT})`,
                 width:       vis ? '100%' : '0%',
                 transition:  'width 1.4s cubic-bezier(0.4,0,0.2,1) 0.6s',
-                boxShadow:   `0 0 6px ${GOLD}60`,
+                boxShadow:   `0 0 6px ${BLUE}60`,
               }}
             />
           </div>
@@ -1044,7 +1044,7 @@ function Process() {
 
         {/* Mobile: vertical */}
         <div className="md:hidden relative pl-12">
-          <div className="absolute left-[18px] top-0 bottom-0 w-px" style={{ background: `${GOLD}30` }} />
+          <div className="absolute left-[18px] top-0 bottom-0 w-px" style={{ background: `${BLUE}30` }} />
           <div className="space-y-10">
             {PROCESS.map((step, i) => (
               <Fade key={step.num} delay={i * 100}>
@@ -1067,13 +1067,13 @@ function ProcessStep({ step }) {
       <div className="relative flex items-center justify-center mx-auto mb-6"
         style={{ width: '64px', height: '64px', zIndex: 10 }}>
         <div className="absolute inset-0 rounded-full transition-all duration-300"
-          style={{ background: hov ? GOLD : CARD, border: `2px solid ${hov ? GOLD : GOLD + '60'}`, boxShadow: hov ? `0 0 20px ${GOLD}60` : 'none' }} />
-        <span className="relative font-display" style={{ fontSize: '1.4rem', color: hov ? BG : GOLD, letterSpacing: '0.05em' }}>{step.num}</span>
+          style={{ background: hov ? BLUE : CARD, border: `2px solid ${hov ? BLUE : BLUE + '60'}`, boxShadow: hov ? `0 0 20px ${BLUE}60` : 'none' }} />
+        <span className="relative font-display" style={{ fontSize: '1.4rem', color: hov ? 'white' : BLUE, letterSpacing: '0.05em' }}>{step.num}</span>
       </div>
 
       <div className="text-2xl mb-3 select-none">{step.emoji}</div>
       <h3 className="font-display mb-2 transition-colors duration-200"
-        style={{ fontSize: '1.2rem', letterSpacing: '0.06em', color: hov ? GOLD : 'white' }}>
+        style={{ fontSize: '1.2rem', letterSpacing: '0.06em', color: hov ? BLUE : 'white' }}>
         {step.title.toUpperCase()}
       </h3>
       <p className="font-body text-[0.8rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{step.desc}</p>
@@ -1085,8 +1085,8 @@ function MobileProcessStep({ step }) {
   return (
     <div className="relative">
       <div className="absolute -left-[42px] w-8 h-8 rounded-full flex items-center justify-center"
-        style={{ background: CARD, border: `2px solid ${GOLD}60`, top: '2px' }}>
-        <span className="font-display text-sm" style={{ color: GOLD }}>{step.num}</span>
+        style={{ background: CARD, border: `2px solid ${BLUE}60`, top: '2px' }}>
+        <span className="font-display text-sm" style={{ color: BLUE }}>{step.num}</span>
       </div>
       <div className="text-xl mb-1 select-none">{step.emoji}</div>
       <h3 className="font-display mb-1" style={{ fontSize: '1.15rem', letterSpacing: '0.06em', color: 'white' }}>{step.title.toUpperCase()}</h3>
@@ -1123,12 +1123,12 @@ function Reviews() {
       <div className="max-w-6xl mx-auto px-6">
         <div ref={ref} className="mb-16 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Client Stories</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}50` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Client Stories</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}50` }} />
           </div>
           <h2 className="font-display" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em', color: L_TEXT }}>
-            GOOGLE <span style={{ color: GOLD }}>REVIEWS</span>
+            GOOGLE <span style={{ color: BLUE }}>REVIEWS</span>
           </h2>
           {rating != null && (
             <div className="flex items-center justify-center gap-3 mt-4">
@@ -1142,7 +1142,7 @@ function Reviews() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-11 h-11 rounded-full border-4 animate-spin" style={{ borderColor: `${GOLD}30`, borderTopColor: GOLD }} />
+            <div className="w-11 h-11 rounded-full border-4 animate-spin" style={{ borderColor: `${BLUE}30`, borderTopColor: BLUE }} />
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1159,9 +1159,9 @@ function ReviewCard({ review: r }) {
   return (
     <div className="p-7 flex flex-col transition-all duration-300 bg-white"
       style={{
-        border:    `1px solid ${hov ? `${GOLD}60` : L_BORDER}`,
+        border:    `1px solid ${hov ? `${BLUE}60` : L_BORDER}`,
         transform: hov ? 'translate(-3px,-3px)' : 'translate(0,0)',
-        boxShadow: hov ? `5px 5px 0 ${GOLD}50, 0 16px 40px rgba(0,0,0,0.1)` : `3px 3px 0 ${GOLD}30, 0 2px 12px rgba(0,0,0,0.06)`,
+        boxShadow: hov ? `5px 5px 0 ${BLUE}50, 0 16px 40px rgba(0,0,0,0.1)` : `3px 3px 0 ${BLUE}30, 0 2px 12px rgba(0,0,0,0.06)`,
       }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
@@ -1199,30 +1199,30 @@ function Contact() {
   const submit = e => { e.preventDefault(); setStatus('sending'); setTimeout(() => setStatus('sent'), 1300); };
 
   const iStyle  = { background: CARD, border: `1px solid rgba(255,255,255,0.09)`, color: 'white' };
-  const focusFn = e => { e.target.style.borderColor = GOLD; e.target.style.boxShadow = `0 0 0 2px ${GOLD}28`; };
+  const focusFn = e => { e.target.style.borderColor = BLUE; e.target.style.boxShadow = `0 0 0 2px ${BLUE}28`; };
   const blurFn  = e => { e.target.style.borderColor = 'rgba(255,255,255,0.09)'; e.target.style.boxShadow = 'none'; };
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden" style={{ background: BG }}>
       <div className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{ backgroundImage: `linear-gradient(rgba(212,160,23,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,160,23,0.06) 1px,transparent 1px)`, backgroundSize: '80px 80px' }}
+        style={{ backgroundImage: `linear-gradient(rgba(27,85,214,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(27,85,214,0.06) 1px,transparent 1px)`, backgroundSize: '80px 80px' }}
       />
       <div className="relative z-10 max-w-3xl mx-auto px-6">
         <div ref={ref} className="mb-14 text-center" style={{ opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(28px)', transition: 'all 0.7s ease' }}>
           <div className="flex items-center gap-4 mb-3 justify-center">
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
-            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Get In Touch</span>
-            <div className="h-px w-16" style={{ background: `${GOLD}30` }} />
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
+            <span className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>Get In Touch</span>
+            <div className="h-px w-16" style={{ background: `${BLUE}30` }} />
           </div>
           <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
-            READY TO <span style={{ color: GOLD }}>TRANSFORM</span><br />YOUR HOME?
+            READY TO <span style={{ color: BLUE }}>TRANSFORM</span><br />YOUR HOME?
           </h2>
           <p className="font-body mt-4 text-[0.88rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>Contact us for a free estimate. Proudly serving McHenry County &amp; Lake County.</p>
           <PaintStroke visible={vis} />
         </div>
 
         <Fade delay={120}>
-          <div className="p-8 md:p-12" style={{ background: CARD, border: `1px solid ${GOLD}20`, boxShadow: `6px 6px 0 ${GOLD}30` }}>
+          <div className="p-8 md:p-12" style={{ background: CARD, border: `1px solid ${BLUE}20`, boxShadow: `6px 6px 0 ${BLUE}30` }}>
             {status === 'sent' ? (
               <div className="text-center py-12">
                 <div className="text-5xl mb-5">✅</div>
@@ -1255,9 +1255,9 @@ function Contact() {
                 </div>
                 <button type="submit" disabled={status === 'sending'}
                   className="w-full py-4 font-body font-bold text-[0.78rem] tracking-[0.18em] uppercase transition-all duration-200 disabled:opacity-60"
-                  style={{ background: GOLD, color: BG, clipPath: 'polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)' }}
-                  onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.background = GOLD_LT; e.currentTarget.style.transform = 'translateY(-1px)'; }}}
-                  onMouseLeave={e => { e.currentTarget.style.background = GOLD; e.currentTarget.style.transform = 'translateY(0)'; }}
+                  style={{ background: BLUE, color: 'white', clipPath: 'polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)' }}
+                  onMouseEnter={e => { if (status !== 'sending') { e.currentTarget.style.background = BLUE_LT; e.currentTarget.style.transform = 'translateY(-1px)'; }}}
+                  onMouseLeave={e => { e.currentTarget.style.background = BLUE; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
                   {status === 'sending' ? 'Sending…' : 'Submit Request'}
                 </button>
@@ -1267,18 +1267,18 @@ function Contact() {
             <div className="mt-8 pt-7 grid sm:grid-cols-2 gap-5 border-t" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
               {[
                 { href:'mailto:PeakPerfectionProjects@gmail.com', label:'Email', text:'PeakPerfectionProjects@gmail.com',
-                  icon:<svg className="w-4 h-4" fill="none" stroke={GOLD} strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg> },
+                  icon:<svg className="w-4 h-4" fill="none" stroke={BLUE} strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg> },
                 { href:'tel:7793025075', label:'Phone', text:'(779) 302-5075',
-                  icon:<svg className="w-4 h-4" fill="none" stroke={GOLD} strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg> },
+                  icon:<svg className="w-4 h-4" fill="none" stroke={BLUE} strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg> },
               ].map(({ href, label, text, icon }) => (
                 <a key={label} href={href} className="flex items-center gap-3 no-underline group"
                   style={{ color: 'rgba(255,255,255,0.45)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'white')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
                 >
-                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0" style={{ background: GOLD_DIM, border: `1px solid ${GOLD}30` }}>{icon}</div>
+                  <div className="w-9 h-9 flex items-center justify-center flex-shrink-0" style={{ background: BLUE_DIM, border: `1px solid ${BLUE}30` }}>{icon}</div>
                   <div>
-                    <div className="font-body text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: GOLD }}>{label}</div>
+                    <div className="font-body text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: BLUE }}>{label}</div>
                     <div className="font-body text-[0.82rem] transition-colors duration-200">{text}</div>
                   </div>
                 </a>
@@ -1303,14 +1303,14 @@ function Footer() {
   ];
   return (
     <footer style={{ background: BG }}>
-      <div className="border-t" style={{ borderColor: `${GOLD}18` }}>
+      <div className="border-t" style={{ borderColor: `${BLUE}18` }}>
         <div className="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-10">
           <div>
             <div className="flex items-center gap-2.5 mb-3">
               <span className="text-2xl">🎨</span>
               <div>
                 <div className="font-display text-white" style={{ fontSize: '1.25rem', letterSpacing: '0.05em' }}>PEAK PERFECTION</div>
-                <div className="font-body text-[0.58rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>PAINTING LLC</div>
+                <div className="font-body text-[0.58rem] font-bold tracking-[0.25em] uppercase" style={{ color: BLUE }}>PAINTING LLC</div>
               </div>
             </div>
             <p className="font-body text-[0.78rem] leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>Precision. Quality. Reliability.<br />Serving McHenry &amp; Lake County.</p>
@@ -1320,19 +1320,19 @@ function Footer() {
           </div>
 
           <div>
-            <div className="font-body text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-4" style={{ color: GOLD }}>Services</div>
+            <div className="font-body text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-4" style={{ color: BLUE }}>Services</div>
             <ul className="space-y-2.5">
               {['Interior Painting','Exterior Painting','Cabinet Painting','Deck Staining','Doors & Trims','Railings','Accent Walls'].map(s => (
                 <li key={s}><a href="#services" className="font-body text-[0.82rem] transition-colors duration-200"
                   style={{ color: 'rgba(255,255,255,0.35)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = GOLD)}
+                  onMouseEnter={e => (e.currentTarget.style.color = BLUE)}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>{s}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <div className="font-body text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-4" style={{ color: GOLD }}>Contact</div>
+            <div className="font-body text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-4" style={{ color: BLUE }}>Contact</div>
             <ul className="space-y-2.5">
               {[{href:'mailto:PeakPerfectionProjects@gmail.com',text:'PeakPerfectionProjects@gmail.com'},{href:'tel:7793025075',text:'(779) 302-5075'}].map(({href,text}) => (
                 <li key={text}><a href={href} className="font-body text-[0.82rem] transition-colors duration-200"
@@ -1359,7 +1359,7 @@ function SocialBtn({ href, label, children }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
       className="w-9 h-9 flex items-center justify-center text-white transition-all duration-200"
-      style={{ background: hov ? GOLD : 'rgba(255,255,255,0.07)', color: hov ? BG : 'white', transform: hov ? 'translateY(-2px)' : 'translateY(0)', border: `1px solid ${hov ? GOLD : 'rgba(255,255,255,0.08)'}` }}
+      style={{ background: hov ? BLUE_LT : 'rgba(255,255,255,0.07)', color: 'white', transform: hov ? 'translateY(-2px)' : 'translateY(0)', border: `1px solid ${hov ? BLUE_LT : 'rgba(255,255,255,0.08)'}` }}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
     >{children}</a>
   );
