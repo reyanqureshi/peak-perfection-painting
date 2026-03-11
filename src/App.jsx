@@ -272,7 +272,7 @@ const NAV_LINKS = [
 
 const MARQUEE_ITEMS = [
   'Interior Painting','Exterior Painting','Cabinet Painting',
-  'Drywall Services','Illinois','Precision','Quality',
+  'Drywall Services','McHenry County','Lake County','Precision','Quality',
   'Reliability','Free Estimates','Eco-Friendly Paints',
 ];
 
@@ -440,7 +440,7 @@ function Hero() {
           style={{ borderColor: `${GOLD}35`, color: GOLD, background: GOLD_DIM, opacity: 0, animation: 'heroBadge 0.6s ease forwards 0.1s' }}
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: GOLD }} />
-          Illinois Painting Specialists
+          McHenry &amp; Lake County Specialists
         </div>
 
         {/* ⑦ Staggered headline */}
@@ -473,7 +473,7 @@ function Hero() {
         <div style={{ opacity: 0, animation: 'heroCta 0.7s ease forwards 1.05s' }}>
           <p className="font-body text-white/50 mx-auto mb-12 leading-relaxed"
             style={{ fontSize: 'clamp(0.88rem,2vw,1.05rem)', maxWidth: '520px' }}>
-            Serving Illinois with top-tier interior, exterior &amp; drywall services.{' '}
+            Serving McHenry County &amp; Lake County with top-tier interior, exterior &amp; drywall services.{' '}
             <span className="text-white/80 font-semibold">Precision. Quality. Reliability.</span>
           </p>
 
@@ -533,7 +533,7 @@ function StatsStrip() {
     { display: <><CountUp to={100} suffix="%" />        </>, label: 'Client Satisfaction'   },
     { display: <><CountUp to={5.0} decimals={1} suffix="★" /></>, label: 'Google Rating' },
     { display: <>Free</>,                                          label: 'Estimates & Consults' },
-    { display: <>Est. <CountUp to={2024} duration={1200} /></>,   label: 'Illinois Based'       },
+    { display: <>Est. <CountUp to={2024} duration={1200} /></>,   label: 'McHenry & Lake County' },
   ];
   return (
     <div className="py-10" style={{ background: GOLD }}>
@@ -776,7 +776,7 @@ function About() {
                 <div className="font-display leading-none" style={{ fontSize: '4rem', color: GOLD, letterSpacing: '0.05em' }}>EST. 2024</div>
                 <div className="font-body text-[0.62rem] font-bold tracking-[0.25em] uppercase mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>Peak Perfection Painting LLC</div>
                 <div className="mt-5 h-px w-20 mx-auto" style={{ background: `${GOLD}40` }} />
-                <div className="font-body text-[0.6rem] font-bold tracking-[0.2em] uppercase mt-4" style={{ color: 'rgba(255,255,255,0.2)' }}>Illinois · Precision · Quality</div>
+                <div className="font-body text-[0.6rem] font-bold tracking-[0.2em] uppercase mt-4" style={{ color: 'rgba(255,255,255,0.2)' }}>McHenry County · Lake County · Illinois</div>
               </div>
             </div>
           </Fade>
@@ -795,7 +795,7 @@ function About() {
               <p>Our mission: <span className="text-white font-semibold">exceed your expectations</span> and treat every home as if it were our own. Whether it's a single accent wall or a full exterior refresh, we deliver the same standard of excellence every time.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
-              {['Interior','Exterior','Cabinets','Drywall','Illinois'].map(tag => (
+              {['Interior','Exterior','Cabinets','Drywall','McHenry County','Lake County'].map(tag => (
                 <span key={tag} className="font-body text-[0.65rem] font-bold tracking-[0.18em] uppercase px-4 py-2 border"
                   style={{ borderColor: `${GOLD}30`, color: GOLD, background: GOLD_DIM }}>{tag}</span>
               ))}
@@ -1028,7 +1028,7 @@ function Contact() {
           <h2 className="font-display text-white" style={{ fontSize: 'clamp(2.4rem,6vw,4.5rem)', letterSpacing: '0.04em' }}>
             READY TO <span style={{ color: GOLD }}>TRANSFORM</span><br />YOUR HOME?
           </h2>
-          <p className="font-body mt-4 text-[0.88rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>Contact us for a free estimate. Proudly serving Illinois.</p>
+          <p className="font-body mt-4 text-[0.88rem]" style={{ color: 'rgba(255,255,255,0.35)' }}>Contact us for a free estimate. Proudly serving McHenry County &amp; Lake County.</p>
           <PaintStroke visible={vis} />
         </div>
 
@@ -1124,7 +1124,7 @@ function Footer() {
                 <div className="font-body text-[0.58rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>PAINTING LLC</div>
               </div>
             </div>
-            <p className="font-body text-[0.78rem] leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>Precision. Quality. Reliability.<br />Serving Illinois with excellence.</p>
+            <p className="font-body text-[0.78rem] leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.3)' }}>Precision. Quality. Reliability.<br />Serving McHenry &amp; Lake County.</p>
             <div className="flex gap-3">
               {socials.map(({ label, href, icon }) => <SocialBtn key={label} href={href} label={label}>{icon}</SocialBtn>)}
             </div>
@@ -1151,7 +1151,7 @@ function Footer() {
                   onMouseEnter={e => (e.currentTarget.style.color = 'white')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}>{text}</a></li>
               ))}
-              <li className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.2)' }}>Illinois, USA</li>
+              <li className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.2)' }}>McHenry County &amp; Lake County, IL</li>
             </ul>
           </div>
         </div>
