@@ -271,9 +271,9 @@ const NAV_LINKS = [
 ];
 
 const MARQUEE_ITEMS = [
-  'Interior Painting','Exterior Painting','Cabinet Painting',
-  'Drywall Services','McHenry County','Lake County','Precision','Quality',
-  'Reliability','Free Estimates','Eco-Friendly Paints',
+  'Interior Painting','Exterior Painting','Cabinet Painting','Deck Staining',
+  'Doors & Trims','Railings','Accent Walls','McHenry County','Lake County',
+  'Precision','Quality','Reliability','Free Estimates','Eco-Friendly Paints',
 ];
 
 const WHY_US = [
@@ -284,10 +284,13 @@ const WHY_US = [
 ];
 
 const SERVICES = [
-  { num: '01', emoji: '🏠', title: 'Interior Painting', desc: 'Flawless, lasting finishes for every room in your home.', items: ['Living Rooms & Bedrooms', 'Kitchens & Bathrooms', 'Hallways & Ceilings', 'Trim & Accent Walls'] },
-  { num: '02', emoji: '🏡', title: 'Exterior Painting',  desc: 'Weather-resistant coatings that protect and beautify.', items: ['Home Exteriors & Siding', 'Trim, Decks & Patios', 'Fences & Concrete', 'Stucco & Brick'] },
-  { num: '03', emoji: '🪟', title: 'Cabinet Painting',   desc: 'Stunning cabinet makeovers with a factory-smooth finish.', items: ['Kitchen Cabinets', 'Bathroom Vanities', 'Custom Finishes', 'Durable Long-Lasting Coats'] },
-  { num: '04', emoji: '🔨', title: 'Drywall Services',   desc: 'Seamless drywall that is perfectly smooth and paint-ready.', items: ['Repairs & Patching', 'New Installation', 'Smooth Finish Prep', 'Ready-to-Paint Surfaces'] },
+  { num: '01', emoji: '🏠', title: 'Interior Painting', desc: 'Flawless, lasting finishes for every room — from prep to final coat.', items: ['Living Rooms & Bedrooms', 'Kitchens & Bathrooms', 'Hallways & Ceilings', 'Smooth, Clean Finish'] },
+  { num: '02', emoji: '🏡', title: 'Exterior Painting',  desc: 'Weather-resistant coatings that protect your home and boost curb appeal.', items: ['Home Exteriors & Siding', 'Trim & Fascia', 'Stucco & Brick', 'Long-Lasting Protection'] },
+  { num: '03', emoji: '🪟', title: 'Cabinet Painting',   desc: 'Transform your kitchen or bathroom with a factory-smooth cabinet finish.', items: ['Kitchen Cabinets', 'Bathroom Vanities', 'Custom Color Matching', 'Durable Long-Lasting Coats'] },
+  { num: '04', emoji: '🪵', title: 'Deck Staining',      desc: 'Restore and protect your deck with expert staining and sealing.', items: ['Full Deck Staining', 'Solid & Semi-Transparent', 'Wood Prep & Cleaning', 'UV & Weather Protection'] },
+  { num: '05', emoji: '🚪', title: 'Doors & Trims',      desc: 'Sharp, detailed finishing on doors and trim that ties the whole look together.', items: ['Interior & Exterior Doors', 'Baseboards & Crown Molding', 'Window Casings', 'Crisp Clean Lines'] },
+  { num: '06', emoji: '🔩', title: 'Railings',           desc: 'Professional railing painting and finishing for a polished, lasting result.', items: ['Interior Railings', 'Exterior Railings', 'Metal & Wood', 'Rust-Resistant Coatings'] },
+  { num: '07', emoji: '🎨', title: 'Accent Walls',       desc: 'Make a bold statement with a perfectly executed feature wall.', items: ['Bold Color Statements', 'Geometric Patterns', 'Textured Finishes', 'Any Room, Any Style'] },
 ];
 
 const PROCESS = [
@@ -630,7 +633,7 @@ function Services() {
               const isActive = active === i;
               return (
                 <button key={svc.num} onClick={() => setActive(i)}
-                  className="w-full text-left flex items-center gap-5 px-8 py-7 transition-all duration-200 border-b"
+                  className="w-full text-left flex items-center gap-5 px-8 py-5 transition-all duration-200 border-b"
                   style={{ borderColor: `${GOLD}12`, background: isActive ? `${GOLD}0c` : 'transparent', borderLeft: `3px solid ${isActive ? GOLD : 'transparent'}` }}
                   onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = `${GOLD}06`; }}
                   onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
@@ -683,7 +686,7 @@ function ServiceSpotlight({ service }) {
       <div className="flex items-center gap-4 mb-7">
         <div className="w-16 h-16 flex items-center justify-center text-3xl select-none flex-shrink-0"
           style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{service.emoji}</div>
-        <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Service {service.num} of 04</div>
+        <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Service {service.num} of 07</div>
       </div>
 
       <h3 className="font-display text-white leading-none mb-5"
@@ -1140,7 +1143,7 @@ function Footer() {
           <div>
             <div className="font-body text-[0.6rem] font-bold tracking-[0.25em] uppercase mb-4" style={{ color: GOLD }}>Services</div>
             <ul className="space-y-2.5">
-              {['Interior Painting','Exterior Painting','Cabinet Painting','Drywall Services'].map(s => (
+              {['Interior Painting','Exterior Painting','Cabinet Painting','Deck Staining','Doors & Trims','Railings','Accent Walls'].map(s => (
                 <li key={s}><a href="#services" className="font-body text-[0.82rem] transition-colors duration-200"
                   style={{ color: 'rgba(255,255,255,0.35)' }}
                   onMouseEnter={e => (e.currentTarget.style.color = GOLD)}
@@ -1165,7 +1168,7 @@ function Footer() {
 
         <div className="border-t max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
           <div className="font-body text-[0.7rem]" style={{ color: 'rgba(255,255,255,0.2)' }}>© 2025 Peak Perfection Painting LLC. All rights reserved.</div>
-          <div className="font-body text-[0.6rem] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.12)' }}>Interior · Exterior · Drywall</div>
+          <div className="font-body text-[0.6rem] uppercase tracking-[0.2em]" style={{ color: 'rgba(255,255,255,0.12)' }}>Interior · Exterior · Cabinets · Decks · Trims · Railings · Accent Walls</div>
         </div>
       </div>
     </footer>
