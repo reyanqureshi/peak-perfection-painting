@@ -289,7 +289,7 @@ const SERVICES = [
   { num: '03', emoji: '🪟', title: 'Cabinet Painting',   desc: 'Transform your kitchen or bathroom with a factory-smooth cabinet finish.', items: ['Kitchen Cabinets', 'Bathroom Vanities', 'Custom Color Matching', 'Durable Long-Lasting Coats'] },
   { num: '04', emoji: '🪵', title: 'Deck Staining',      desc: 'Restore and protect your deck with expert staining and sealing.', items: ['Full Deck Staining', 'Solid & Semi-Transparent', 'Wood Prep & Cleaning', 'UV & Weather Protection'] },
   { num: '05', emoji: '🚪', title: 'Doors & Trims',      desc: 'Sharp, detailed finishing on doors and trim that ties the whole look together.', items: ['Interior & Exterior Doors', 'Baseboards & Crown Molding', 'Window Casings', 'Crisp Clean Lines'] },
-  { num: '06', emoji: '🔩', title: 'Railings',           desc: 'Professional railing painting and finishing for a polished, lasting result.', items: ['Interior Railings', 'Exterior Railings', 'Metal & Wood', 'Rust-Resistant Coatings'] },
+  { num: '06', emoji: '🔩', title: 'Railings',           desc: 'Professional railing painting and finishing for a polished, lasting result.', items: ['Interior Railings', 'Exterior Railings', 'Metal & Wood', 'Rust-Resistant Coatings'], images: ['/railing-1.jpg', '/railing-2.jpg', '/railing-3.jpg'] },
   { num: '07', emoji: '🎨', title: 'Accent Walls',       desc: 'Make a bold statement with a perfectly executed feature wall.', items: ['Bold Color Statements', 'Geometric Patterns', 'Textured Finishes', 'Any Room, Any Style'], images: ['/accent-1.jpg', '/accent-2.jpg', '/accent-3.jpg'] },
 ];
 
