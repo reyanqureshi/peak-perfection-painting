@@ -790,9 +790,16 @@ function About() {
               WHO<br /><span style={{ color: GOLD }}>WE ARE</span>
             </h2>
             <div className="space-y-4 font-body text-[0.88rem] leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              <p>At <span className="font-semibold text-white">Peak Perfection Painting LLC</span>, we believe a fresh coat of paint can transform more than just walls — it transforms how a space feels and how you feel within it.</p>
-              <p>We are passionate, experienced painters dedicated to bringing your vision to life with precision, creativity, and genuine care for your home. We specialize in interior, exterior, and drywall services using high-quality, eco-friendly paints safe for your family and environment.</p>
-              <p>Our mission: <span className="text-white font-semibold">exceed your expectations</span> and treat every home as if it were our own. Whether it's a single accent wall or a full exterior refresh, we deliver the same standard of excellence every time.</p>
+              <p>At <span className="font-semibold text-white">Peak Perfection Painting LLC</span>, we believe that a fresh coat of paint can transform more than just walls — it can transform a home. We are a team of passionate, experienced painters dedicated to bringing your vision to life with precision, creativity, and care.</p>
+              <p>From the first brushstroke to the final finish, we take pride in every detail, ensuring a smooth, stress-free experience for our clients. With years of expertise, we specialize in both interior and exterior painting, offering customized solutions to suit your style, needs, and budget.</p>
+              <p>Whether you're looking to refresh a single room, add curb appeal to your home's exterior, or completely revamp your space, we're here to help. What sets us apart? Attention to detail, timely delivery, and a commitment to using <span className="text-white font-semibold">high-quality, eco-friendly paints</span> that are safe for your family and the environment.</p>
+              <div className="mt-6 pt-5 border-t" style={{ borderColor: `rgba(212,160,23,0.2)` }}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-4 h-0.5" style={{ background: GOLD }} />
+                  <span className="font-body text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: GOLD }}>Our Mission</span>
+                </div>
+                <p>To provide high-quality, professional painting services that <span className="text-white font-semibold">exceed our clients' expectations</span>. We treat every home like it's our own — with respect, honesty, and a dedication to excellence.</p>
+              </div>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
               {['Interior','Exterior','Cabinets','Drywall','McHenry County','Lake County'].map(tag => (
