@@ -290,7 +290,7 @@ const SERVICES = [
   { num: '04', emoji: '🪵', title: 'Deck Staining',      desc: 'Restore and protect your deck with expert staining and sealing.', items: ['Full Deck Staining', 'Solid & Semi-Transparent', 'Wood Prep & Cleaning', 'UV & Weather Protection'] },
   { num: '05', emoji: '🚪', title: 'Doors & Trims',      desc: 'Sharp, detailed finishing on doors and trim that ties the whole look together.', items: ['Interior & Exterior Doors', 'Baseboards & Crown Molding', 'Window Casings', 'Crisp Clean Lines'] },
   { num: '06', emoji: '🔩', title: 'Railings',           desc: 'Professional railing painting and finishing for a polished, lasting result.', items: ['Interior Railings', 'Exterior Railings', 'Metal & Wood', 'Rust-Resistant Coatings'] },
-  { num: '07', emoji: '🎨', title: 'Accent Walls',       desc: 'Make a bold statement with a perfectly executed feature wall.', items: ['Bold Color Statements', 'Geometric Patterns', 'Textured Finishes', 'Any Room, Any Style'] },
+  { num: '07', emoji: '🎨', title: 'Accent Walls',       desc: 'Make a bold statement with a perfectly executed feature wall.', items: ['Bold Color Statements', 'Geometric Patterns', 'Textured Finishes', 'Any Room, Any Style'], images: ['/accent-1.jpg', '/accent-2.jpg', '/accent-3.jpg'] },
 ];
 
 const PROCESS = [
@@ -675,37 +675,85 @@ function Services() {
 }
 
 function ServiceSpotlight({ service }) {
+  const [activeImg, setActiveImg] = useState(0);
+  const hasPhotos = service.images?.length > 0;
+
   return (
-    <div className="flex-1 relative overflow-hidden p-10 flex flex-col justify-center"
+    <div className="flex-1 relative overflow-hidden flex flex-col"
       style={{ background: CARD, animation: 'fadeSlideIn 0.35s ease-out forwards' }}
     >
       <style>{`@keyframes fadeSlideIn { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:translateX(0)} }`}</style>
-      <div className="absolute -right-6 -bottom-8 font-display leading-none select-none pointer-events-none"
-        style={{ fontSize: '22rem', color: `${GOLD}07`, letterSpacing: '0.02em', lineHeight: 0.85 }}>{service.num}</div>
 
-      <div className="flex items-center gap-4 mb-7">
-        <div className="w-16 h-16 flex items-center justify-center text-3xl select-none flex-shrink-0"
-          style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{service.emoji}</div>
-        <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Service {service.num} of 07</div>
-      </div>
-
-      <h3 className="font-display text-white leading-none mb-5"
-        style={{ fontSize: 'clamp(2.6rem,4vw,3.8rem)', letterSpacing: '0.04em' }}>{service.title.toUpperCase()}</h3>
-      <div className="w-12 h-0.5 mb-5" style={{ background: GOLD }} />
-      <p className="font-body text-[0.9rem] leading-relaxed mb-8 max-w-lg" style={{ color: 'rgba(255,255,255,0.5)' }}>{service.desc}</p>
-
-      <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-        {service.items.map((item, i) => (
-          <div key={item} className="flex items-center gap-2.5">
-            <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: GOLD }}>{String(i+1).padStart(2,'0')}</span>
-            <span className="font-body text-[0.83rem]" style={{ color: 'rgba(255,255,255,0.65)' }}>{item}</span>
+      {/* Photo gallery — shown when service has images */}
+      {hasPhotos && (
+        <div className="relative w-full flex-shrink-0" style={{ height: '260px' }}>
+          {/* Main photo */}
+          <img
+            key={activeImg}
+            src={service.images[activeImg]}
+            alt={`${service.title} example`}
+            className="w-full h-full object-cover"
+            style={{ animation: 'fadeSlideIn 0.3s ease-out forwards' }}
+          />
+          {/* Dark gradient overlay at bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+            style={{ background: `linear-gradient(to top, ${CARD}, transparent)` }} />
+          {/* Thumbnail strip */}
+          <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4">
+            {service.images.map((src, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveImg(i)}
+                className="transition-all duration-200 overflow-hidden flex-shrink-0"
+                style={{
+                  width:   activeImg === i ? '64px' : '48px',
+                  height:  '40px',
+                  border:  `2px solid ${activeImg === i ? GOLD : 'rgba(255,255,255,0.25)'}`,
+                  opacity: activeImg === i ? 1 : 0.6,
+                }}
+              >
+                <img src={src} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
+          {/* Photo count badge */}
+          <div className="absolute top-3 right-3 font-body text-[0.6rem] font-bold tracking-widest uppercase px-2.5 py-1"
+            style={{ background: `${BG}cc`, color: GOLD, border: `1px solid ${GOLD}40`, backdropFilter: 'blur(4px)' }}>
+            {activeImg + 1} / {service.images.length}
+          </div>
+        </div>
+      )}
 
-      <div className="mt-9">
+      {/* Text content */}
+      <div className={`relative flex flex-col justify-center p-8 ${hasPhotos ? 'flex-1' : 'flex-1 p-10'}`}>
+        {/* Watermark number — only when no photos */}
+        {!hasPhotos && (
+          <div className="absolute -right-6 -bottom-8 font-display leading-none select-none pointer-events-none"
+            style={{ fontSize: '22rem', color: `${GOLD}07`, letterSpacing: '0.02em', lineHeight: 0.85 }}>{service.num}</div>
+        )}
+
+        <div className="flex items-center gap-4 mb-5">
+          <div className="w-12 h-12 flex items-center justify-center text-2xl select-none flex-shrink-0"
+            style={{ background: GOLD_DIM, border: `1px solid ${GOLD}40` }}>{service.emoji}</div>
+          <div className="font-body text-[0.65rem] font-bold tracking-[0.25em] uppercase" style={{ color: GOLD }}>Service {service.num} of 07</div>
+        </div>
+
+        <h3 className="font-display text-white leading-none mb-3"
+          style={{ fontSize: 'clamp(2rem,3.5vw,3rem)', letterSpacing: '0.04em' }}>{service.title.toUpperCase()}</h3>
+        <div className="w-10 h-0.5 mb-4" style={{ background: GOLD }} />
+        <p className="font-body text-[0.85rem] leading-relaxed mb-6 max-w-lg" style={{ color: 'rgba(255,255,255,0.5)' }}>{service.desc}</p>
+
+        <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-7">
+          {service.items.map((item, i) => (
+            <div key={item} className="flex items-center gap-2.5">
+              <span className="font-body text-[0.6rem] font-bold flex-shrink-0" style={{ color: GOLD }}>{String(i+1).padStart(2,'0')}</span>
+              <span className="font-body text-[0.82rem]" style={{ color: 'rgba(255,255,255,0.65)' }}>{item}</span>
+            </div>
+          ))}
+        </div>
+
         <a href="#contact"
-          className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-7 py-3.5 transition-all duration-200"
+          className="inline-flex items-center gap-3 font-body text-[0.75rem] font-bold tracking-[0.18em] uppercase px-7 py-3.5 transition-all duration-200 self-start"
           style={{ background: GOLD, color: BG, clipPath: 'polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)' }}
           onMouseEnter={e => (e.currentTarget.style.background = GOLD_LT)}
           onMouseLeave={e => (e.currentTarget.style.background = GOLD)}
